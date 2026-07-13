@@ -1,0 +1,1179 @@
+/* frontend/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #eef2f7;
+    --bg-surface: #ffffff;
+    --sidebar-top: #081f59;
+    --sidebar-bottom: #0d2c7a;
+    --header-bg: #ffffff;
+    --text-primary: #081f59;
+    --text-secondary: #64748b;
+    --border-color: #94a3b8;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+
+    --base: var(--bg-primary);
+    --subtle: var(--bg-primary);
+    --surface-1: var(--bg-surface);
+    --surface-2: #f8fafc;
+    --surface-3: #e2e8f0;
+    --surface-4: #cbd5e1;
+    --surface-5: #94a3b8;
+    --pip-border: var(--border-color);
+    --pip-border-subtle: var(--border-color);
+    --pip-text: var(--text-primary);
+    --pip-secondary: var(--text-secondary);
+    --pip-muted: var(--text-secondary);
+    --pip-accent: var(--primary);
+    --pip-accent-dim: #e8eeff;
+    --inverted: #ffffff;
+
+    --card-shadow: 0 4px 10px -2px rgba(26, 37, 44, 0.08), 0 2px 6px -1px rgba(26, 37, 44, 0.04), 0 0 0 1px rgba(26, 37, 44, 0.02);
+    --card-shadow-elevated: 0 10px 20px -5px rgba(26, 37, 44, 0.12), 0 4px 8px -2px rgba(26, 37, 44, 0.06), 0 0 0 1px rgba(26, 37, 44, 0.03);
+
+    --rag-green-bg: #C6F6D5;
+    --rag-green-text: #1C733C;
+    --rag-amber-bg: #FEEBC8;
+    --rag-amber-text: #B25E00;
+    --rag-red-bg: #FED7D7;
+    --rag-red-text: #C5221F;
+
+    --err-bg: #FCE8E6;
+    --err-text: #C5221F;
+  }
+
+  .dark {
+    --base: #030712;
+    --subtle: #0b0f19;
+    --surface-1: #111827;
+    --surface-2: #030712;
+    --surface-3: #1e293b;
+    --surface-4: #374151;
+    --surface-5: #4b5563;
+    --pip-border: #1e293b;
+    --pip-border-subtle: #111827;
+    --pip-text: #f3f4f6;
+    --pip-secondary: #cbd5e1;
+    --pip-muted: #94a3b8;
+    --pip-accent: #3b82f6;
+    --pip-accent-dim: rgba(59, 130, 246, 0.12);
+    --inverted: #0b0f19;
+
+    --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), 0 2px 10px -1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --card-shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 8px 16px -4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+    --rag-green-bg: rgba(16, 185, 129, 0.15);
+    --rag-green-text: #34d399;
+    --rag-amber-bg: rgba(245, 158, 11, 0.15);
+    --rag-amber-text: #fbbf24;
+    --rag-red-bg: rgba(239, 68, 68, 0.15);
+    --rag-red-text: #f87171;
+
+    --err-bg: rgba(239, 68, 68, 0.1);
+    --err-text: #f87171;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    @apply bg-base text-pip-text antialiased;
+    min-height: 100vh;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-pip-border rounded-full;
+  }
+
+  /* TipTap editor base */
+  .ProseMirror {
+    @apply outline-none min-h-[100px] text-pip-text text-sm leading-relaxed;
+  }
+
+  .ProseMirror p {
+    @apply mb-2;
+  }
+
+  .ProseMirror ul,
+  .ProseMirror ol {
+    @apply pl-5 mb-2;
+  }
+
+  .ProseMirror strong {
+    @apply font-semibold;
+  }
+}
+
+/* Hide native date picker indicator so our custom button is the only control shown */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-clear-button,
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* For Firefox */
+input[type="date"]::-moz-clear {
+  display: none;
+}
+
+/* Global page background and variable overrides in light mode */
+html:not(.dark) body {
+  background: #eaedf1 !important;
+}
+
+html:not(.dark) .bg-base {
+  background: transparent !important;
+}
+
+html:not(.dark) main,
+html:not(.dark) .login-bg {
+  --base: #eaedf1;
+  --bg-primary: #eaedf1;
+  --pip-text: #0f172a;
+  --pip-secondary: #475569;
+  --pip-muted: #64748b;
+  --pip-border: rgba(15, 23, 42, 0.16);
+}
+
+/* Style elevated solid white header/navbar in light mode with shadow definition */
+html:not(.dark) nav {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.16) !important;
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05), 0 1px 2px 0 rgba(15, 23, 42, 0.02) !important;
+  --pip-text: #0f172a !important;
+  --pip-secondary: #475569 !important;
+  --pip-border: rgba(15, 23, 42, 0.16) !important;
+}
+
+html:not(.dark) nav .bg-accent {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 2px 4px 0 rgba(37, 99, 235, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+html:not(.dark) nav .bg-accent:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3) !important;
+}
+
+html:not(.dark) nav button.border-pip-border,
+html:not(.dark) nav button[aria-label="Toggle theme"] {
+  border: 1px solid rgba(15, 23, 42, 0.16) !important;
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html:not(.dark) nav button.border-pip-border:hover,
+html:not(.dark) nav button[aria-label="Toggle theme"]:hover {
+  background-color: #f8fafc !important;
+  border-color: #2563eb !important;
+  color: #0f172a !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Ensure magnifying glass and other icons inside inputs have strong contrast in light mode */
+html:not(.dark) .relative svg,
+html:not(.dark) span.text-pip-muted svg,
+html:not(.dark) .relative .text-pip-secondary,
+html:not(.dark) .relative .text-pip-muted {
+  color: #64748b !important;
+}
+
+/* Apply clean white background and drop shadow definition inside cards and panels */
+html:not(.dark) .card,
+html:not(.dark) table,
+html:not(.dark) .bg-white,
+html:not(.dark) .bg-surface-1 {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  --surface-1: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #f1f5f9;
+  --surface-4: #e2e8f0;
+  --surface-5: #cbd5e1;
+  --pip-text: #0f172a;
+  --pip-secondary: #475569;
+  --pip-muted: #64748b;
+  --pip-border: rgba(15, 23, 42, 0.16);
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 8px 12px -6px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.01) !important;
+  border: 1px solid rgba(15, 23, 42, 0.16) !important;
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.3s ease-in-out !important;
+}
+
+/* Fallback static base style for login card - prevents entrance animations, hover shifts, and applies a very subtle shadow */
+html:not(.dark) .login-bg .card,
+html:not(.dark) .login-bg table,
+html:not(.dark) .login-bg .bg-white,
+html:not(.dark) .login-bg .bg-surface-1 {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Interactive Card Hover Effects - background-color change only, no motion or shadow lift animations */
+html:not(.dark) .card:hover,
+html:not(.dark) .bg-white:hover,
+html:not(.dark) .bg-surface-1:hover {
+  background-color: #f8fafc !important;
+  border-color: rgba(15, 23, 42, 0.24) !important;
+}
+
+/* Deactivate interactive hover effects for login page cards */
+html:not(.dark) .login-bg .card:hover,
+html:not(.dark) .login-bg .bg-white:hover,
+html:not(.dark) .login-bg .bg-surface-1:hover {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Table Row Smooth Blue Tint Hover */
+html:not(.dark) tbody tr {
+  transition: background-color 0.15s ease !important;
+}
+
+html:not(.dark) tbody tr:hover {
+  background-color: rgba(37, 99, 235, 0.03) !important;
+}
+
+/* Recessed sunken sub-panels inside the main white cards */
+html:not(.dark) .bg-surface-2 {
+  background: #f8fafc !important;
+  --pip-border: rgba(15, 23, 42, 0.12) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: inset 0 2px 4px 0 rgba(15, 23, 42, 0.03) !important;
+}
+
+html:not(.dark) .bg-surface-3 {
+  background: #f1f5f9 !important;
+  --pip-border: rgba(15, 23, 42, 0.16) !important;
+  border: 1px solid rgba(15, 23, 42, 0.16) !important;
+  box-shadow: inset 0 2px 4px 0 rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Style Badge component variants inside light mode cards */
+html:not(.dark) .bg-rag-amber-bg\/20 {
+  background-color: var(--rag-amber-bg) !important;
+  color: var(--rag-amber-text) !important;
+  border-color: rgba(178, 94, 0, 0.2) !important;
+}
+
+html:not(.dark) .bg-rag-green-bg\/20 {
+  background-color: var(--rag-green-bg) !important;
+  color: var(--rag-green-text) !important;
+  border-color: rgba(28, 115, 60, 0.2) !important;
+}
+
+/* Style reporting status banners inside white cards for light mode */
+html:not(.dark) .bg-green-900\/20 {
+  background-color: #C6F6D5 !important;
+  color: #1C733C !important;
+  border-color: rgba(28, 115, 60, 0.15) !important;
+}
+
+html:not(.dark) .bg-amber-900\/20 {
+  background-color: #FEEBC8 !important;
+  color: #B25E00 !important;
+  border-color: rgba(178, 94, 0, 0.15) !important;
+}
+
+html:not(.dark) .bg-red-900\/20 {
+  background-color: #FED7D7 !important;
+  color: #C5221F !important;
+  border-color: rgba(197, 34, 31, 0.15) !important;
+}
+
+/* Tactile micro-interactions for all buttons */
+html:not(.dark) button {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+html:not(.dark) button:hover {
+  transform: translateY(-1px) !important;
+}
+
+html:not(.dark) button:active {
+  transform: translateY(0.5px) scale(0.98) !important;
+}
+
+html:not(.dark) button.bg-accent:hover,
+html:not(.dark) button.bg-primary:hover,
+html:not(.dark) button[type="submit"]:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Deactivate button animations and lift on the login page */
+html:not(.dark) .login-bg button {
+  transform: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) .login-bg button:hover,
+html:not(.dark) .login-bg button:active {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Deactivate hover and active lift/scale animations on tab navigation buttons */
+html:not(.dark) button[class*="border-b-2"],
+html:not(.dark) .border-b button {
+  transform: none !important;
+  transition: color 0.15s ease, border-color 0.15s ease !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) button[class*="border-b-2"]:hover,
+html:not(.dark) button[class*="border-b-2"]:active,
+html:not(.dark) .border-b button:hover,
+html:not(.dark) .border-b button:active {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Uniform bg-only hover for accent buttons — no lift; same visible darken in light and dark */
+button.hover-accent-shade {
+  transition: filter 0.2s ease, background-color 0.2s ease !important;
+}
+
+button.hover-accent-shade:hover {
+  transform: none !important;
+  filter: brightness(0.9) !important;
+}
+
+button.hover-accent-shade:active {
+  transform: none !important;
+  filter: brightness(0.82) !important;
+}
+
+/* High visibility shadow-defined input fields globally in light mode */
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.24) !important;
+  border-radius: 8px !important;
+  --pip-text: #0f172a !important;
+  --pip-secondary: #475569 !important;
+  --pip-muted: #64748b !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04), inset 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html:not(.dark) input:focus,
+html:not(.dark) select:focus,
+html:not(.dark) textarea:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15), 0 4px 12px -2px rgba(37, 99, 235, 0.06) !important;
+}
+
+/* Slide-out sidebar in light mode - uses the clean grey page background */
+html:not(.dark) .sidebar-gradient {
+  background: #eaedf1 !important;
+  --base: #eaedf1;
+  --bg-primary: #eaedf1;
+  --surface-1: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #f1f5f9;
+  --surface-4: #e2e8f0;
+  --surface-5: #cbd5e1;
+  --pip-text: #0f172a;
+  --pip-secondary: #475569;
+  --pip-muted: #64748b;
+  --pip-border: rgba(15, 23, 42, 0.16);
+  --pip-border-subtle: rgba(15, 23, 42, 0.12);
+}
+
+/* Ensure tabs and content inside sidebar have correct light mode text colors */
+html:not(.dark) .sidebar-gradient,
+html:not(.dark) .sidebar-gradient * {
+  --pip-text: #0f172a;
+  --pip-secondary: #475569;
+  --pip-muted: #64748b;
+  --pip-border: rgba(15, 23, 42, 0.16);
+}
+
+/* Login page background in light mode */
+html:not(.dark) .login-bg {
+  background: #eaedf1 !important;
+}
+
+html:not(.dark) .login-bg p.text-pip-muted {
+  color: #475569 !important;
+}
+
+/* Style inputs in the login card */
+html:not(.dark) .login-bg input {
+  border: 1px solid rgba(15, 23, 42, 0.24) !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04), inset 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+}
+
+html:not(.dark) .login-bg input:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15), 0 4px 12px -2px rgba(37, 99, 235, 0.06) !important;
+}
+
+/* Style outline/secondary buttons inside white cards and login card */
+html:not(.dark) .login-bg button.border-pip-border,
+html:not(.dark) .card button.border-pip-border {
+  border: 1px solid rgba(15, 23, 42, 0.16) !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html:not(.dark) .login-bg button.border-pip-border:hover,
+html:not(.dark) .card button.border-pip-border:hover {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #2563eb !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(37, 99, 235, 0.1) !important;
+}
+
+html:not(.dark) .login-bg .border-pip-border {
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Make "or" divider text and backgrounds match the white card */
+html:not(.dark) .login-bg span.text-pip-muted {
+  color: #64748b !important;
+  font-weight: 600 !important;
+}
+
+html:not(.dark) .login-bg span.bg-surface-1 {
+  background: #ffffff !important;
+}
+
+/* Active tab border and text color overrides in light mode */
+html:not(.dark) .border-accent {
+  border-color: #2563eb !important;
+}
+
+html:not(.dark) .text-accent {
+  color: #2563eb !important;
+}
+
+/* Ensure the login back button starts grey and turns blue on hover in light mode */
+html:not(.dark) .login-back-btn {
+  color: #64748b !important;
+  transition: color 0.2s ease !important;
+}
+
+html:not(.dark) .login-back-btn:hover {
+  color: #2563eb !important;
+}
+
+/* Disable hover/active transformations on select trigger buttons */
+html:not(.dark) button.select-trigger-btn {
+  background-color: var(--surface-1) !important;
+  border: 1px solid var(--pip-border) !important;
+}
+
+html:not(.dark) button.select-trigger-btn,
+html:not(.dark) button.select-trigger-btn:hover,
+html:not(.dark) button.select-trigger-btn:active {
+  transform: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, background-color 0.15s ease !important;
+}
+
+
+
+/* Custom dropdown option hover styles for improved visibility */
+html:not(.dark) button.dropdown-option,
+html:not(.dark) button.dropdown-option:hover,
+html:not(.dark) button.dropdown-option:active {
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+.dropdown-option,
+.dropdown-option:hover {
+  transition: none !important;
+}
+
+.dropdown-option:hover {
+  color: #2563eb !important;
+  background-color: #dbeafe !important;
+}
+
+.dark .dropdown-option:hover {
+  color: #4d80ff !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Danger button override in light mode for improved visibility and hover behavior */
+html:not(.dark) button.bg-err-bg {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+  border: 1px solid rgba(153, 27, 27, 0.2) !important;
+}
+
+html:not(.dark) button.bg-err-bg:hover {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+}
+
+/* Global table row hover styling for enhanced interactivity */
+html:not(.dark) tbody tr {
+  transition: background-color 0.15s ease !important;
+}
+
+.dark tbody tr {
+  transition: background-color 0.15s ease !important;
+}
+
+/* Badge border visibility overrides */
+html:not(.dark) .badge-active {
+  border-color: rgba(37, 99, 235, 0.5) !important;
+}
+
+html:not(.dark) .badge-inactive {
+  border-color: rgba(197, 34, 31, 0.4) !important;
+}
+
+/* Change PM button custom styling (default and hover) */
+html:not(.dark) button.change-pm-btn {
+  background-color: transparent !important;
+  color: #2563eb !important;
+  border: 1px solid rgba(37, 99, 235, 0.25) !important;
+}
+
+html:not(.dark) button.change-pm-btn:hover {
+  background-color: #dbeafe !important;
+  color: #1d4ed8 !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
+}
+
+.dark button.change-pm-btn {
+  background-color: transparent !important;
+  color: #3b82f6 !important;
+  border: 1px solid rgba(59, 130, 246, 0.25) !important;
+}
+
+.dark button.change-pm-btn:hover {
+  background-color: rgba(59, 130, 246, 0.12) !important;
+  color: #3b82f6 !important;
+  border-color: rgba(59, 130, 246, 0.45) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Tooltip overrides for light mode */
+html:not(.dark) .tooltip-content {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important;
+}
+
+/* Global accent utility overrides strictly for light mode to ensure active blue color styling */
+html:not(.dark) .bg-accent {
+  background-color: var(--pip-accent) !important;
+}
+
+html:not(.dark) .text-accent {
+  color: var(--pip-accent) !important;
+}
+
+html:not(.dark) .border-accent {
+  border-color: var(--pip-accent) !important;
+}
+
+/* Ensure calendar/date-picker icons inside bg-accent buttons are solid white strictly in light mode */
+html:not(.dark) .bg-accent svg {
+  stroke: #ffffff !important;
+}
+
+/* Restore date picker button to transparent background and remove hover animation in light mode only */
+html:not(.dark) button[aria-label="Open date picker"] {
+  background-color: transparent !important;
+  color: var(--pip-muted) !important;
+  box-shadow: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+}
+
+html:not(.dark) button[aria-label="Open date picker"]:hover {
+  background-color: transparent !important;
+  color: var(--pip-muted) !important;
+  opacity: 1 !important;
+}
+
+html:not(.dark) button[aria-label="Open date picker"] svg {
+  stroke: currentColor !important;
+}
+
+/* Restore thick colored left borders for dashboard cards in light mode */
+html:not(.dark) .border-l-4 {
+  border-left-width: 4px !important;
+}
+
+html:not(.dark) .border-l-green-500 {
+  border-left-color: #22c55e !important;
+}
+
+html:not(.dark) .border-l-amber-500 {
+  border-left-color: #f59e0b !important;
+}
+
+html:not(.dark) .border-l-red-500 {
+  border-left-color: #ef4444 !important;
+}
+
+html:not(.dark) .border-l-blue-500 {
+  border-left-color: #3b82f6 !important;
+}
+
+/* Ensure input, select, and select trigger borders are clearly visible and have no hover background shifts in light mode */
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea,
+html:not(.dark) .select-trigger-btn {
+  border-color: rgba(15, 23, 42, 0.35) !important;
+}
+
+html:not(.dark) input.bg-surface-2:hover {
+  background-color: #f8fafc !important;
+  border-color: rgba(15, 23, 42, 0.35) !important;
+}
+
+html:not(.dark) input.bg-surface-1:hover,
+html:not(.dark) input:not(.bg-surface-2):hover,
+html:not(.dark) select:hover,
+html:not(.dark) .select-trigger-btn:hover {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.35) !important;
+}
+
+/* Deactivate lift/translate and active scaling animations on form input select trigger and date picker icon buttons */
+html:not(.dark) .select-trigger-btn {
+  transform: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) button[aria-label="Open date picker"].-translate-y-1\/2 {
+  transform: translateY(-50%) !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) button[aria-label="Open date picker"]:not(.-translate-y-1\/2) {
+  transform: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) .select-trigger-btn:hover,
+html:not(.dark) .select-trigger-btn:active {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) button[aria-label="Open date picker"].-translate-y-1\/2:hover,
+html:not(.dark) button[aria-label="Open date picker"].-translate-y-1\/2:active {
+  transform: translateY(-50%) !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) button[aria-label="Open date picker"]:not(.-translate-y-1\/2):hover,
+html:not(.dark) button[aria-label="Open date picker"]:not(.-translate-y-1\/2):active {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent hover background changes on the right-side details popup/sidebar and any cards/containers inside it in light mode */
+html:not(.dark) .sidebar-popup,
+html:not(.dark) .sidebar-popup:hover {
+  background: #eaedf1 !important;
+}
+
+html:not(.dark) .sidebar-popup .bg-surface-1,
+html:not(.dark) .sidebar-popup .bg-surface-1:hover,
+html:not(.dark) .sidebar-popup .bg-white,
+html:not(.dark) .sidebar-popup .bg-white:hover {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .sidebar-popup .bg-surface-2,
+html:not(.dark) .sidebar-popup .bg-surface-2:hover {
+  background-color: #f8fafc !important;
+  box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+}
+
+html:not(.dark) .sidebar-popup .card,
+html:not(.dark) .sidebar-popup .card:hover {
+  background-color: #ffffff !important;
+  box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Add box shadow to the header of the sidebar popup in light mode */
+html:not(.dark) .sidebar-popup>div:first-of-type {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Project card custom box shadow to override global bg-surface-1 box-shadow in light mode */
+html:not(.dark) .project-card {
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.02) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html:not(.dark) .project-card:hover {
+  background: #dbeafe !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Light mode project initial styling - enhanced visibility & theme borders */
+html:not(.dark) .project-initial {
+  border: 1.5px solid rgba(37, 99, 235, 0.35) !important;
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: #2563eb !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html:not(.dark) .project-card:hover .project-initial {
+  border-color: rgba(37, 99, 235, 0.6) !important;
+}
+
+/* Branded grey borders for PM Dashboard edit page fields and tables in light mode */
+html:not(.dark) .pm-dashboard-page input,
+html:not(.dark) .pm-dashboard-page select,
+html:not(.dark) .pm-dashboard-page textarea,
+html:not(.dark) .pm-dashboard-page .select-trigger-btn,
+html:not(.dark) .pm-dashboard-page .border-pip-border,
+html:not(.dark) .pm-dashboard-page [class*="border-pip-border"],
+html:not(.dark) .pm-dashboard-page [class*="divide-pip-border"]>* {
+  border-color: rgba(15, 23, 42, 0.2) !important;
+}
+
+html:not(.dark) .pm-dashboard-page input:focus,
+html:not(.dark) .pm-dashboard-page select:focus,
+html:not(.dark) .pm-dashboard-page textarea:focus {
+  border-color: rgba(15, 23, 42, 0.65) !important;
+}
+
+/* ==========================================
+   PREMIUM DARK MODE DESIGN SYSTEM OVERRIDES
+   ========================================== */
+
+/* Navbar & Header glassmorphic glow in dark mode */
+.dark nav {
+  background-color: rgba(3, 7, 18, 0.8) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.3) !important;
+  --pip-text: #f3f4f6 !important;
+  --pip-secondary: #cbd5e1 !important;
+  --pip-border: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark nav .bg-accent {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3) !important;
+  transition: all 0.2s ease !important;
+}
+
+.dark nav .bg-accent:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5) !important;
+}
+
+.dark nav button.border-pip-border,
+.dark nav button[aria-label="Toggle theme"] {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark nav button.border-pip-border:hover,
+.dark nav button[aria-label="Toggle theme"]:hover {
+  background-color: #374151 !important;
+  border-color: #3b82f6 !important;
+  color: #f3f4f6 !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Premium cards, tables and container surfaces in dark mode */
+.dark .card,
+.dark table,
+.dark .bg-surface-1,
+.dark .bg-white {
+  background: #111827 !important;
+  color: #f3f4f6 !important;
+  --surface-1: #111827;
+  --surface-2: #030712;
+  --surface-3: #1e293b;
+  --surface-4: #374151;
+  --surface-5: #4b5563;
+  --pip-text: #f3f4f6;
+  --pip-secondary: #cbd5e1;
+  --pip-muted: #94a3b8;
+  --pip-border: rgba(255, 255, 255, 0.08);
+  box-shadow: var(--card-shadow-elevated) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.3s ease-in-out !important;
+}
+
+
+
+/* recessed container panels */
+.dark .bg-surface-2 {
+  background: #030712 !important;
+  --pip-border: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark .bg-surface-3 {
+  background: #1e293b !important;
+  --pip-border: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Table hover interactions in dark mode */
+.dark tbody tr {
+  transition: background-color 0.15s ease !important;
+}
+
+/* Form input, select, and textarea fields in dark mode */
+.dark input,
+.dark select,
+.dark textarea,
+.dark .select-trigger-btn {
+  color: #f3f4f6 !important;
+  background-color: #030712 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark input:hover,
+.dark select:hover,
+.dark textarea:hover,
+.dark .select-trigger-btn:hover {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  background-color: #030712 !important;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25), 0 4px 12px -2px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Form input select trigger button normalization */
+.dark button.select-trigger-btn,
+.dark button.select-trigger-btn:hover,
+.dark button.select-trigger-btn:active {
+  transform: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, background-color 0.15s ease !important;
+}
+
+/* Date Pickers in dark mode */
+.dark button[aria-label="Open date picker"] {
+  background-color: transparent !important;
+  color: var(--pip-muted) !important;
+  box-shadow: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+}
+
+.dark button[aria-label="Open date picker"]:hover {
+  background-color: transparent !important;
+  color: var(--pip-text) !important;
+  opacity: 1 !important;
+}
+
+.dark button[aria-label="Open date picker"] svg {
+  stroke: currentColor !important;
+}
+
+.dark button[aria-label="Open date picker"].-translate-y-1\/2 {
+  transform: translateY(-50%) !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+.dark button[aria-label="Open date picker"]:not(.-translate-y-1\/2) {
+  transform: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+/* Tactile micro-interactions for all buttons in dark mode */
+.dark button {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+.dark button:hover {
+  transform: translateY(-1px) !important;
+}
+
+.dark button:active {
+  transform: translateY(0.5px) scale(0.98) !important;
+}
+
+.dark button.bg-accent:hover,
+.dark button.bg-primary:hover,
+.dark button[type="submit"]:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Slide-out Sidebar & Details Popup panel in dark mode */
+.dark .sidebar-popup,
+.dark .sidebar-popup:hover {
+  background: #030712 !important;
+}
+
+.dark .sidebar-popup .bg-surface-1,
+.dark .sidebar-popup .bg-surface-1:hover,
+.dark .sidebar-popup .bg-white,
+.dark .sidebar-popup .bg-white:hover {
+  background-color: #111827 !important;
+}
+
+.dark .sidebar-popup .bg-surface-2,
+.dark .sidebar-popup .bg-surface-2:hover {
+  background-color: #030712 !important;
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .sidebar-popup .card,
+.dark .sidebar-popup .card:hover {
+  background-color: #111827 !important;
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Sidebar header shadow in dark mode */
+.dark .sidebar-popup>div:first-of-type {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Slide-out sidebar general panel overrides */
+.dark .sidebar-gradient {
+  background: #030712 !important;
+  --base: #030712;
+  --bg-primary: #030712;
+  --surface-1: #111827;
+  --surface-2: #030712;
+  --surface-3: #1e293b;
+  --surface-4: #374151;
+  --surface-5: #4b5563;
+  --pip-text: #f3f4f6;
+  --pip-secondary: #cbd5e1;
+  --pip-muted: #94a3b8;
+  --pip-border: rgba(255, 255, 255, 0.08);
+  --pip-border-subtle: rgba(255, 255, 255, 0.06);
+}
+
+.dark .sidebar-gradient * {
+  --pip-text: #f3f4f6;
+  --pip-secondary: #cbd5e1;
+  --pip-muted: #94a3b8;
+  --pip-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Project Card Hover in dark mode */
+.dark .project-card {
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3), 0 2px 6px -1px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark .project-card:hover {
+  background: rgba(59, 130, 246, 0.12) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Dark mode project initial styling - enhanced visibility & theme borders */
+.dark .project-initial {
+  border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
+  background-color: rgba(59, 130, 246, 0.12) !important;
+  color: #3b82f6 !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark .project-card:hover .project-initial {
+  border-color: rgba(59, 130, 246, 0.75) !important;
+}
+
+/* Tooltips in dark mode */
+.dark .tooltip-content {
+  background-color: #1e293b !important;
+  color: #f3f4f6 !important;
+  border: 1px solid #374151 !important;
+}
+
+/* Login page overrides in dark mode */
+.dark .login-bg {
+  background: #030712 !important;
+}
+
+.dark .login-bg p.text-pip-muted {
+  color: #cbd5e1 !important;
+}
+
+.dark .login-bg input {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background-color: #030712 !important;
+  color: #f3f4f6 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark .login-bg input:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25), 0 4px 12px -2px rgba(59, 130, 246, 0.15) !important;
+}
+
+.dark .login-bg button.border-pip-border,
+.dark .card button.border-pip-border {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
+  background-color: #1e293b !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark .login-bg button.border-pip-border:hover,
+.dark .card button.border-pip-border:hover {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+  border-color: #3b82f6 !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1) !important;
+}
+
+.dark .login-bg .border-pip-border {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .login-bg span.text-pip-muted {
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
+}
+
+.dark .login-bg span.bg-surface-1 {
+  background: #1e293b !important;
+}
+
+/* Login back button in dark mode */
+.dark .login-back-btn {
+  color: #cbd5e1 !important;
+  transition: color 0.2s ease !important;
+}
+
+.dark .login-back-btn:hover {
+  color: #3b82f6 !important;
+}
+
+/* Active tab border and text color overrides in dark mode */
+.dark .border-accent {
+  border-color: #3b82f6 !important;
+}
+
+.dark .text-accent {
+  color: #3b82f6 !important;
+}
+
+.dark .bg-accent {
+  background-color: #3b82f6 !important;
+}
+
+/* Thick colored left borders for dashboard cards in dark mode */
+.dark .border-l-4 {
+  border-left-width: 4px !important;
+}
+
+.dark .border-l-green-500 {
+  border-left-color: #10b981 !important;
+}
+
+.dark .border-l-amber-500 {
+  border-left-color: #f59e0b !important;
+}
+
+.dark .border-l-red-500 {
+  border-left-color: #ef4444 !important;
+}
+
+.dark .border-l-blue-500 {
+  border-left-color: #3b82f6 !important;
+}
+
+/* Danger button override in dark mode */
+.dark button.bg-err-bg {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+.dark button.bg-err-bg:hover {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+}
+
+/* PM Dashboard specific dark mode tweaks */
+.dark .pm-dashboard-page input,
+.dark .pm-dashboard-page select,
+.dark .pm-dashboard-page textarea,
+.dark .pm-dashboard-page .select-trigger-btn,
+.dark .pm-dashboard-page .border-pip-border,
+.dark .pm-dashboard-page [class*="border-pip-border"],
+.dark .pm-dashboard-page [class*="divide-pip-border"]>* {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .pm-dashboard-page input:focus,
+.dark .pm-dashboard-page select:focus,
+.dark .pm-dashboard-page textarea:focus {
+  border-color: rgba(59, 130, 246, 0.6) !important;
+}
+
+.dark .pm-sticky-header {
+  background-color: #030712 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}

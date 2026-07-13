@@ -1,0 +1,16 @@
+{
+  "name": "pmp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "migrate": "cd backend && npm run migrate",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build:shared": "cd shared && npm run build",
+    "build:all": "npm run build:shared && npm run build:backend && npm run build:frontend",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:reload": "pm2 reload ecosystem.config.cjs"
+  }
+}
